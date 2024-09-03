@@ -1,11 +1,13 @@
 import { Button } from "@/components/ui/button";
 import vid from "@/assets/video.mp4";
 import vidWeb from "@/assets/video.mp4";
+import BrandShowcase from "@/components/BrandShowcase";
 
 const HomePage = () => {
   return (
     <main>
-      <div className="w-full text-white h-[40rem] rounded-2xl relative text-accent-foreground-foreground overflow-hidden">
+      {/* Display Section*/}
+      <section className="w-full text-white h-[40rem] rounded-2xl relative text-accent-foreground-foreground overflow-hidden">
         {/* Backgroud*/}
         <div className="absolute top-0 left-0 h-full w-full brightness-50 overflow-hidden">
           <video className="h-full w-full object-cover" autoPlay muted loop>
@@ -23,12 +25,14 @@ const HomePage = () => {
             <h3 className="text-xl lg:text-3xl max-w-[40rem] w-full sm:w-1/2 ">
               Discover timeless trends and express your unique style journey
             </h3>
-            <Button className=" text-foreground rounded-3xl bg-white" asChild>
+            <Button className="rounded-3xl" asChild>
               <a href="/login">Explore now</a>
             </Button>
           </div>
         </div>
-      </div>
+      </section>
+
+      <BrandShowcase />
     </main>
   );
 };
