@@ -5,7 +5,7 @@ import BrandShowcase from "@/components/BrandShowcase";
 
 const HomePage = () => {
   return (
-    <main>
+    <main className="px-14 lg:px-20 overflow-hidden">
       {/* Display Section*/}
       <section className="w-full text-white h-[40rem] rounded-2xl relative text-accent-foreground-foreground overflow-hidden">
         {/* Backgroud*/}
@@ -31,7 +31,6 @@ const HomePage = () => {
           </div>
         </div>
       </section>
-
       <BrandShowcase />
     </main>
   );

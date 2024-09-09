@@ -1,45 +1,29 @@
-import sprite from "@/assets/sprite.svg";
+import gucci from "@/assets/gucci.svg";
+import levi from "@/assets/levi.svg";
+import nike from "@/assets/nike.svg";
+import underArmour from "@/assets/under-armour.svg";
+import adidas from "@/assets/adidas.svg";
+import zara from "@/assets/zara.svg";
 
 const BrandShowcase = () => {
   return (
-    <div className="">
-      <svg
-        className="fill-current aspect-square object-contain w-[192.756px] h-[192.756px]"
-        aria-hidden="true"
-      >
-        <use xlinkHref={`${sprite}#gucci`} />
-      </svg>
-
-      <svg
-        className="fill-current aspect-[3/2] object-contain w-[192.756px] h-[192.756px]"
-        aria-hidden="true"
-      >
-        <use xlinkHref={`${sprite}#puma`} />
-      </svg>
-      <svg
-        className="fill-current aspect-[3/2] object-contain w-[449.328px] h-[512px]"
-        aria-hidden="true"
-      >
-        <use xlinkHref={`${sprite}#levi`} />
-      </svg>
-      <svg
-        className="fill-current aspect-[3/2] object-contain w-[23.998665px] h-[20.052px]"
-        aria-hidden="true"
-      >
-        <use xlinkHref={`${sprite}#adidas`} />
-      </svg>
-      <svg
-        className="fill-current aspect-[3/2] object-contain w-[2516px] h-[594.4px]"
-        aria-hidden="true"
-      >
-        <use xlinkHref={`${sprite}#zara`} />
-      </svg>
-      <svg
-        className="fill-current aspect-[3/2] object-contain w-[240px] h-[180.04px]"
-        aria-hidden="true"
-      >
-        <use xlinkHref={`${sprite}#under-armour`} />
-      </svg>
+    <div className="w-full my-20 flex items-center relative mr-20">
+      <div className="marquee-inner flex justify-between w-full absolute mr-8 duration-1000">
+        <img className="logo" src={gucci} alt="Gucci logo" />
+        <img className="logo" src={levi} alt="Levi logo" />
+        <img className="logo" src={underArmour} alt="Under Armour logo" />
+        <img className="logo" src={nike} alt="Nike logo" />
+        <img className="logo" src={adidas} alt="Adidas logo" />
+        <img className="logo" src={zara} alt="Zara logo" />
+      </div>
+      <div className="marquee-inner flex justify-between w-full absolute -right-[109%] duration-1000">
+        <img className="logo" src={gucci} alt="Gucci logo" />
+        <img className="logo" src={levi} alt="Levi logo" />
+        <img className="logo" src={underArmour} alt="Under Armour logo" />
+        <img className="logo" src={nike} alt="Nike logo" />
+        <img className="logo" src={adidas} alt="Adidas logo" />
+        <img className="logo" src={zara} alt="Zara logo" />
+      </div>
     </div>
   );
 };
