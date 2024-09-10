@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import vid from "@/assets/video.mp4";
 import vidWeb from "@/assets/video.mp4";
 import BrandShowcase from "@/components/BrandShowcase";
+import Categories from "@/components/Categories";
 
 const HomePage = () => {
   return (
@@ -32,6 +33,7 @@ const HomePage = () => {
         </div>
       </section>
       <BrandShowcase />
+      <Categories />
     </main>
   );
 };
