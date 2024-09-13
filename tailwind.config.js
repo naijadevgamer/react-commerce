@@ -20,14 +20,17 @@ export default {
           to: { transform: "translateX(105%)" },
         },
       },
+      transitionDuration: {
+        image: "6s",
+      },
       gridTemplateColumns: {
-        body: "8fr, 17fr",
+        category: "repeat(2, 1fr)",
         "body-tp": "10fr, 15fr",
         days: "repeat(auto-fit, minmax(13rem, 1fr))",
         // column: "",
       },
       gridTemplateRows: {
-        highlight: "20.4rem, 15.9rem",
+        category: "repeat(7, 1fr)",
         body: "minmax(102.3rem, 100vh)",
         "body-tl": "minmax(max-content, 100vh)",
         "body-p": "minmax(100vh, max-content), max-content",
