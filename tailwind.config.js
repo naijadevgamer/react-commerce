@@ -24,7 +24,7 @@ export default {
         image: "6s",
       },
       gridTemplateColumns: {
-        category: "repeat(2, 1fr)",
+        category: "1.5fr repeat(2, 1fr)",
         "body-tp": "10fr, 15fr",
         days: "repeat(auto-fit, minmax(13rem, 1fr))",
         // column: "",
