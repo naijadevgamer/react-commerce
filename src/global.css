@@ -80,7 +80,7 @@
 }
 
 .logo {
-  @apply aspect-square w-24 object-contain;
+  @apply aspect-square w-16 object-contain md:w-24;
 }
 
 @keyframes marquee {

@@ -2,7 +2,7 @@ import HomePage from "./pages/HomePage";
 
 const App = () => {
   return (
-    <div>
+    <div className="font-montserratAlt">
       <HomePage />
     </div>
   );
