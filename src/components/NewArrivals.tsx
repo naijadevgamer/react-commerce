@@ -3,10 +3,10 @@ import { ArrowRight } from "lucide-react";
 
 const NewArrivals = () => {
   return (
-    <div className="bg-white">
-      <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
-        <div className="font-audiowide flex items-center justify-between gap-x-3">
-          <h2 className="text-2xl font-bold tracking-tight text-gray-900">
+    <div>
+      <div className="mx-auto max-w-4xl px-4 py-4 sm:px-6 sm:py-8 lg:max-w-7xl lg:px-8">
+        <div className="flex items-center justify-between gap-x-3 font-audiowide">
+          <h2 className="font-audiowide text-2xl font-semibold uppercase tracking-tight md:text-3xl">
             New Arrivals
           </h2>
 
@@ -33,11 +33,12 @@ const NewArrivals = () => {
 
             <div className="mt-4 flex justify-between">
               <div>
-                <h3 className="text-sm font-medium text-gray-700">
-                  <a href={`/product}`}>Clothe</a>
+                <h3 className="font-medium">
+                  <a href={`/product/`}>Futuristic Hat</a>
                 </h3>
+                <p className="mt-1 text-gray-600">Men</p>
               </div>
-              <p className="text-sm font-medium text-gray-900">$34</p>
+              <p className="font-medium">$20</p>
             </div>
           </div>
 
@@ -52,11 +53,12 @@ const NewArrivals = () => {
 
             <div className="mt-4 flex justify-between">
               <div>
-                <h3 className="text-sm font-medium text-gray-700">
-                  <a href={`/product}`}>Clothe</a>
+                <h3 className="font-medium">
+                  <a href={`/product/`}>Futuristic Hat</a>
                 </h3>
+                <p className="mt-1 text-gray-600">Men</p>
               </div>
-              <p className="text-sm font-medium text-gray-900">$34</p>
+              <p className="font-medium">$20</p>
             </div>
           </div>
 
@@ -71,11 +73,12 @@ const NewArrivals = () => {
 
             <div className="mt-4 flex justify-between">
               <div>
-                <h3 className="text-sm font-medium text-gray-700">
-                  <a href={`/product}`}>Clothe</a>
+                <h3 className="font-medium">
+                  <a href={`/product/`}>Futuristic Hat</a>
                 </h3>
+                <p className="mt-1 text-gray-600">Men</p>
               </div>
-              <p className="text-sm font-medium text-gray-900">$34</p>
+              <p className="font-medium">$20</p>
             </div>
           </div>
 
@@ -90,68 +93,12 @@ const NewArrivals = () => {
 
             <div className="mt-4 flex justify-between">
               <div>
-                <h3 className="text-sm font-medium text-gray-700">
-                  <a href={`/product}`}>Clothe</a>
+                <h3 className="font-medium">
+                  <a href={`/product/`}>Futuristic Hat</a>
                 </h3>
+                <p className="mt-1 text-gray-600">Men</p>
               </div>
-              <p className="text-sm font-medium text-gray-900">$34</p>
-            </div>
-          </div>
-
-          <div className="group relative">
-            <div className="aspect-square w-full overflow-hidden rounded-md bg-gray-200 group-hover:opacity-75 lg:h-80">
-              <img
-                src={man}
-                alt="Product image"
-                className="h-full w-full object-cover object-center lg:h-full lg:w-full"
-              />
-            </div>
-
-            <div className="mt-4 flex justify-between">
-              <div>
-                <h3 className="text-sm font-medium text-gray-700">
-                  <a href={`/product}`}>Clothe</a>
-                </h3>
-              </div>
-              <p className="text-sm font-medium text-gray-900">$34</p>
-            </div>
-          </div>
-
-          <div className="group relative">
-            <div className="aspect-square w-full overflow-hidden rounded-md bg-gray-200 group-hover:opacity-75 lg:h-80">
-              <img
-                src={man}
-                alt="Product image"
-                className="h-full w-full object-cover object-center lg:h-full lg:w-full"
-              />
-            </div>
-
-            <div className="mt-4 flex justify-between">
-              <div>
-                <h3 className="text-sm font-medium text-gray-700">
-                  <a href={`/product}`}>Clothe</a>
-                </h3>
-              </div>
-              <p className="text-sm font-medium text-gray-900">$34</p>
-            </div>
-          </div>
-
-          <div className="group relative">
-            <div className="aspect-square w-full overflow-hidden rounded-md bg-gray-200 group-hover:opacity-75 lg:h-80">
-              <img
-                src={man}
-                alt="Product image"
-                className="h-full w-full object-cover object-center lg:h-full lg:w-full"
-              />
-            </div>
-
-            <div className="mt-4 flex justify-between">
-              <div>
-                <h3 className="text-sm font-medium text-gray-700">
-                  <a href={`/product}`}>Clothe</a>
-                </h3>
-              </div>
-              <p className="text-sm font-medium text-gray-900">$34</p>
+              <p className="font-medium">$20</p>
             </div>
           </div>
         </div>

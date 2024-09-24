@@ -48,14 +48,16 @@ const categories = [
 
 const Categories = () => {
   return (
-    <section className="mb-16">
-      <div className="mb-6 flex justify-between">
-        <h1 className="font-audiowide text-3xl">Categories</h1>
-        <p className="text-xl uppercase text-gray-400">
+    <section className="mx-auto max-w-4xl px-4 py-4 sm:px-6 sm:py-8 lg:max-w-7xl lg:px-8">
+      <div className="mb-6 flex items-center justify-center gap-3 sm:justify-between">
+        <h1 className="font-audiowide text-2xl font-semibold uppercase tracking-tight md:text-3xl">
+          Categories
+        </h1>
+        <p className="hidden uppercase text-gray-400 sm:block md:text-xl">
           Men Women Sneakers Jackets Hats
         </p>
       </div>
-      <div className="grid h-[90vw] grid-cols-category grid-rows-category gap-2 md:h-[70vw] md:gap-4 lg:gap-8">
+      <div className="grid h-[120vw] grid-cols-category grid-rows-category gap-2 md:h-[70vw] md:gap-4 lg:gap-8 2xl:h-auto">
         {categories.map((category) => (
           <figure
             key={category.id}
@@ -66,7 +68,7 @@ const Categories = () => {
               alt={category.title}
               className="size-[120%] bg-top object-cover brightness-50 duration-image group-hover:size-full"
             />
-            <button className="font-audiowide absolute bottom-0 right-0 h-12 rounded-tl-xl bg-white/80 p-3 text-xl uppercase md:rounded-tl-3xl">
+            <button className="sm:p3 absolute bottom-0 right-0 rounded-tl-xl bg-white/80 p-1 font-audiowide text-sm uppercase sm:p-3 sm:text-xl md:rounded-tl-3xl">
               {category.title}
             </button>
           </figure>
