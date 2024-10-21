@@ -79,15 +79,3 @@ const Categories = () => {
 };
 
 export default Categories;
-
-{
-  /* <figure className="grid-rows-[2/3]">
-        <img src={man} alt="" clas/>
-      </figure>
-      <figure>
-        <img src={man} alt="" />
-      </figure>
-      <figure>
-        <img src={man} alt="" />
-      </figure> */
-}
