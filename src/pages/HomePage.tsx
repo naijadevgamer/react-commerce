@@ -3,6 +3,7 @@ import Categories from "@/components/Categories";
 import NewArrivals from "@/components/NewArrivals";
 import FAQ from "@/components/FAQ";
 import Heroes from "@/components/Heroes";
+import Footer from "@/components/Footer";
 
 const HomePage = () => {
   return (
@@ -12,6 +13,7 @@ const HomePage = () => {
       <Categories />
       <NewArrivals />
       <FAQ />
+      <Footer />
     </main>
   );
 };
