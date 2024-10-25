@@ -58,18 +58,18 @@ const Categories = () => {
         </p>
       </div>
       <div className="grid h-[120vw] grid-cols-category grid-rows-category gap-2 md:h-[70vw] md:gap-4 lg:gap-8 2xl:h-auto">
-        {categories.map((category) => (
+        {categories.map(({ id, grid, imageUrl, title }) => (
           <figure
-            key={category.id}
-            className={`${category.grid} group relative cursor-pointer place-items-center overflow-hidden rounded-xl md:rounded-3xl`}
+            key={id}
+            className={`${grid} group relative cursor-pointer place-items-center overflow-hidden rounded-xl md:rounded-3xl`}
           >
             <img
-              src={category.imageUrl}
-              alt={category.title}
+              src={imageUrl}
+              alt={title}
               className="size-[120%] bg-top object-cover brightness-50 duration-image group-hover:size-full"
             />
             <button className="sm:p3 absolute bottom-0 right-0 rounded-tl-xl bg-white/80 p-1 font-audiowide text-sm uppercase sm:p-3 sm:text-xl md:rounded-tl-3xl">
-              {category.title}
+              {title}
             </button>
           </figure>
         ))}
