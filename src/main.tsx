@@ -4,6 +4,7 @@ import App from "./App.tsx";
 import "./global.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ShopPage from "./pages/ShopPage.tsx";
+import CartPage from "./pages/CartPage.tsx";
 
 const router = createBrowserRouter([
   {
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
         element: <ShopPage />,
       },
     ],
+  },
+  {
+    path: "cart",
+    element: <CartPage />,
   },
   {
     path: "login",
