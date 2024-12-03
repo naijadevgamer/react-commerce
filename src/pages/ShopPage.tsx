@@ -5,7 +5,7 @@ import { useState } from "react";
 
 const ShopPage = () => {
   // const id = useParams({ itemId });
-  const [collections, _] = useState<ShopCategory[]>(SHOP_DATA);
+  const [collections] = useState<ShopCategory[]>(SHOP_DATA);
 
   return (
     <div>

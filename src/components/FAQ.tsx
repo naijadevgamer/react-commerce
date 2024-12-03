@@ -12,7 +12,7 @@ interface FAQItem {
   value: string; // This will be used as the value for AccordionItem
 }
 
-const faqData: FAQItem[] = [
+const FAQ_DATA: FAQItem[] = [
   {
     question: "What is your return policy?",
     answer:
@@ -59,7 +59,7 @@ const FAQ = () => {
       </h1>
       {/* Use map to dynamically generate AccordionItems from the faqData array */}
       <Accordion type="multiple">
-        {faqData.map((faq) => (
+        {FAQ_DATA.map((faq) => (
           <AccordionItem key={faq.value} value={faq.value}>
             {/* AccordionTrigger displays the FAQ question */}
             <AccordionTrigger className="text-start font-audiowide text-xl font-semibold hover:decoration-primary sm:text-2xl">
