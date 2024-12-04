@@ -1,9 +1,12 @@
+import Footer from "@/components/Footer";
+import Navbar from "@/components/Navbar";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const CartPage = () => {
   return (
     <div>
+      <Navbar />
       <div className="mx-auto mt-6 w-full max-w-lg px-2 sm:max-w-lg">
         <h1 className="text-center text-3xl font-semibold">Shopping Cart</h1>
 
@@ -21,12 +24,6 @@ const CartPage = () => {
                       <h3>Clothe name</h3>
                       <p className="ml-4">$310</p>
                     </div>
-                    <p className="mt-1 line-clamp-2 text-sm text-gray-500">
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Similique nemo nisi ipsam! Culpa harum perspiciatis neque
-                      a officia repellendus consequuntur architecto nobis,
-                      facere saepe eius, iste ratione, minus rerum laboriosam?
-                    </p>
                   </div>
 
                   <div className="flex flex-1 items-end justify-between text-sm">
@@ -160,6 +157,7 @@ const CartPage = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };
