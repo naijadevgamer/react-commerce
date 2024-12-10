@@ -1,12 +1,9 @@
-import Footer from "@/components/Footer";
-import Navbar from "@/components/Navbar";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const CartPage = () => {
   return (
     <div>
-      <Navbar />
       <div className="mx-auto mt-6 w-full max-w-lg px-2 sm:max-w-lg">
         <h1 className="text-center text-3xl font-semibold">Shopping Cart</h1>
 
@@ -157,7 +154,6 @@ const CartPage = () => {
           </div>
         </div>
       </div>
-      <Footer />
     </div>
   );
 };

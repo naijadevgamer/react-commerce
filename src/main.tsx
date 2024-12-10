@@ -7,26 +7,30 @@ import ShopPage from "./pages/ShopPage.tsx";
 import CartPage from "./pages/CartPage.tsx";
 import RegisterPage from "./pages/RegisterPage.tsx";
 import LoginPage from "./pages/LoginPage.tsx";
+import HomePage from "./pages/HomePage.tsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
-    errorElement: <div>Not found</div>,
-  },
-  {
-    path: "shop",
-    element: <ShopPage />,
+    element: <App />, // Use Layout as the parent route
     children: [
+      { path: "/", element: <HomePage /> },
       {
-        path: ":itemId",
+        path: "shop",
         element: <ShopPage />,
+        children: [
+          {
+            path: ":itemId",
+            element: <ShopPage />,
+          },
+        ],
       },
+      { path: "cart", element: <CartPage /> },
     ],
   },
   {
-    path: "cart",
-    element: <CartPage />,
+    path: "*",
+    element: <div>Not Found</div>, // Fallback for unmatched routes
   },
   {
     path: "login",
