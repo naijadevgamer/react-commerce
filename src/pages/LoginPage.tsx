@@ -5,10 +5,10 @@ import FormButton from "@/components/FormButton";
 import FormInput from "@/components/FormInput";
 import AuthSwitchLink from "@/components/AutoSwitchLink";
 import FormBgImage from "@/components/FormBgImage";
-import {
-  signInWithGoogle,
-  signInWithGoogleMobile,
-} from "@/firebase/firebase.utils";
+import { auth, signInWithGoogle } from "@/firebase/firebase.utils";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 // Schema for Login Form Validation
 const loginSchema = z.object({
@@ -25,17 +25,26 @@ const LoginPage = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<LoginFields>({
     resolver: zodResolver(loginSchema),
   });
 
-  const onSubmit: SubmitHandler<LoginFields> = (data: LoginFields) => {
-    console.log(data);
+  const [isGoogleSigningIn, setGoogleSigningIn] = useState(false);
+  const navigate = useNavigate();
+
+  const onSubmit: SubmitHandler<LoginFields> = async (data) => {
+    try {
+      await signInWithEmailAndPassword(auth, data.email, data.password);
+      console.log("User logged in successfully");
+      navigate("/"); // Redirect to homepage
+    } catch (error) {
+      console.error("Error logging in", error);
+    }
   };
 
   return (
-    <div className="mx-auto mt-20 flex w-full max-w-sm overflow-hidden rounded-lg bg-white shadow-lg dark:bg-gray-800 lg:max-w-4xl">
+    <div className="mx-auto my-14 flex w-full max-w-sm overflow-hidden rounded-lg bg-white shadow-lg dark:bg-gray-800 md:my-20 lg:max-w-4xl">
       <FormBgImage />
 
       <form
@@ -56,15 +65,28 @@ const LoginPage = () => {
         <FormButton
           label="Sign in with Google"
           variant="google"
-          onClick={signInWithGoogle}
-          className="hidden xl:flex"
+          onClick={() => {
+            setGoogleSigningIn(true);
+            signInWithGoogle()
+              .then((result) => {
+                navigate("/");
+                console.log(result);
+              })
+              .catch((error) => {
+                console.log(error);
+              })
+              .finally(() => {
+                setGoogleSigningIn(false); // Stop loading
+              });
+          }}
+          isSubmitting={isGoogleSigningIn}
         />
-        <FormButton
+        {/* <FormButton
           label="Sign in with Google"
           variant="google"
           onClick={signInWithGoogleMobile}
           className="flex xl:hidden"
-        />
+        /> */}
 
         <AuthSwitchLink text="Or Sign in here" />
 
@@ -84,7 +106,11 @@ const LoginPage = () => {
           />
         </div>
         <div className="mt-6">
-          <FormButton label="Sign In" type="submit" />
+          <FormButton
+            label="Sign In"
+            type="submit"
+            isSubmitting={isSubmitting}
+          />
         </div>
 
         <AuthSwitchLink text="Or register here" href={"/signup"} />

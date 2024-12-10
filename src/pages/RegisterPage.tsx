@@ -5,6 +5,9 @@ import FormButton from "@/components/FormButton";
 import AuthSwitchLink from "@/components/AutoSwitchLink";
 import FormInput from "@/components/FormInput";
 import FormBgImage from "@/components/FormBgImage";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth, createUserProfileDocument } from "@/firebase/firebase.utils";
+import { useNavigate } from "react-router-dom";
 
 // Schema for Register Form Validation
 const registerSchema = z
@@ -48,12 +51,29 @@ const RegisterPage: React.FC = () => {
     resolver: zodResolver(registerSchema),
   });
 
-  const onSubmit: SubmitHandler<RegisterFields> = (data: RegisterFields) => {
-    console.log(data);
+  const navigate = useNavigate();
+  // const onSubmit: SubmitHandler<RegisterFields> = (data: RegisterFields) => {
+  //   console.log(data);
+  // };
+
+  const onSubmit: SubmitHandler<RegisterFields> = async (data) => {
+    try {
+      const { user } = await createUserWithEmailAndPassword(
+        auth,
+        data.email,
+        data.password,
+      );
+      await createUserProfileDocument(user, { displayName: data.name });
+      console.log("User registered successfully", user);
+      // Redirect to homepage
+      navigate("/");
+    } catch (error) {
+      console.error("Error creating user", error);
+    }
   };
 
   return (
-    <div className="mx-auto my-20 flex w-full max-w-sm overflow-hidden rounded-lg bg-white shadow-lg dark:bg-gray-800 lg:max-w-4xl">
+    <div className="mx-auto my-14 flex w-full max-w-sm overflow-hidden rounded-lg bg-white shadow-lg dark:bg-gray-800 md:my-20 lg:max-w-4xl">
       <FormBgImage />
       <form
         onSubmit={handleSubmit(onSubmit)}
