@@ -1,4 +1,5 @@
-import React, { ReactNode } from "react";
+import React from "react";
+import { BsGoogle } from "react-icons/bs";
 
 interface ButtonProps {
   label: string;
@@ -6,7 +7,7 @@ interface ButtonProps {
   type?: "button" | "submit" | "reset";
   className?: string;
   variant?: "default" | "google";
-  iconSrc?: ReactNode; // Optional icon source for the Google button
+  isSubmitting?: boolean;
 }
 
 const FormButton: React.FC<ButtonProps> = ({
@@ -15,7 +16,7 @@ const FormButton: React.FC<ButtonProps> = ({
   type = "button",
   className = "",
   variant = "default",
-  iconSrc,
+  isSubmitting,
 }) => {
   const isGoogle = variant === "google";
 
@@ -23,14 +24,15 @@ const FormButton: React.FC<ButtonProps> = ({
     <button
       type={type}
       onClick={onClick}
-      className={`flex w-full transform items-center justify-center rounded-lg px-6 py-3 text-sm font-medium capitalize tracking-wide transition-colors duration-300 focus:outline-none focus:ring focus:ring-opacity-50 ${
+      disabled={isSubmitting}
+      className={`flex w-full transform items-center justify-center rounded-lg px-6 py-3 text-sm font-medium capitalize tracking-wide transition-colors duration-300 focus:outline-none focus:ring focus:ring-opacity-50 disabled:opacity-50 ${
         isGoogle
           ? "border border-gray-300 bg-white text-gray-700 hover:bg-gray-100 focus:ring-gray-300"
           : "bg-gray-800 text-white hover:bg-gray-700 focus:ring-gray-300"
       } ${className}`}
     >
-      {isGoogle && iconSrc}
-      {label}
+      {isGoogle && <BsGoogle className="mr-2" />}
+      {isSubmitting ? "Submitting..." : label}
     </button>
   );
 };
