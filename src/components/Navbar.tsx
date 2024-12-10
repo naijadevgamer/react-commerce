@@ -6,7 +6,7 @@ const MENU_LINKS = [
   { name: "Home", link: "/" },
   { name: "Shop", link: "/Shop" },
   { name: "Contact", link: "/Contact" },
-  { name: "About", link: "/About" },
+  { name: "Sign in", link: "/login" },
 ];
 
 const Navbar: React.FC = () => {
@@ -18,7 +18,7 @@ const Navbar: React.FC = () => {
         <div className="flex items-center justify-between">
           <Link to="/">
             <span className="font-montserratAlt text-xl font-bold uppercase">
-              Couturio
+              Cavitorio
             </span>
           </Link>
 

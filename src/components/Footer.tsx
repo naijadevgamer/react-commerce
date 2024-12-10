@@ -44,12 +44,14 @@ const Footer = () => {
     <footer className="bg-black text-center font-montserratAlt text-white/75">
       <div className="mx-auto max-w-4xl px-4 py-4 sm:px-6 sm:py-8 lg:max-w-7xl lg:px-8">
         <h1 className="mb-6 text-2xl font-semibold uppercase tracking-tight md:text-3xl">
-          Couturio
+          Cavitorio
         </h1>
         <p className="mb-6">
           © 2024{" "}
-          <span className="ont-semibold uppercase text-primary">Couturio</span>.
-          Your go-to destination for the latest in fashion trends and timeless
+          <span className="font-semibold uppercase text-primary">
+            Cavitorio
+          </span>
+          . Your go-to destination for the latest in fashion trends and timeless
           classics. Shop with confidence and enjoy fast shipping, hassle-free
           returns, and exceptional customer service. Thank you for choosing us!
         </p>

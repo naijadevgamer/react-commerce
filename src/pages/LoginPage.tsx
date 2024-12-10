@@ -1,4 +1,3 @@
-import { BsGoogle } from "react-icons/bs";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -6,6 +5,10 @@ import FormButton from "@/components/FormButton";
 import FormInput from "@/components/FormInput";
 import AuthSwitchLink from "@/components/AutoSwitchLink";
 import FormBgImage from "@/components/FormBgImage";
+import {
+  signInWithGoogle,
+  signInWithGoogleMobile,
+} from "@/firebase/firebase.utils";
 
 // Schema for Login Form Validation
 const loginSchema = z.object({
@@ -53,8 +56,14 @@ const LoginPage = () => {
         <FormButton
           label="Sign in with Google"
           variant="google"
-          iconSrc={<BsGoogle className="mr-2" />}
-          onClick={() => console.log("Google Sign-In Clicked")}
+          onClick={signInWithGoogle}
+          className="hidden xl:flex"
+        />
+        <FormButton
+          label="Sign in with Google"
+          variant="google"
+          onClick={signInWithGoogleMobile}
+          className="flex xl:hidden"
         />
 
         <AuthSwitchLink text="Or Sign in here" />

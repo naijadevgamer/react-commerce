@@ -1,4 +1,3 @@
-import { BsGoogle } from "react-icons/bs";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -74,7 +73,6 @@ const RegisterPage: React.FC = () => {
         <FormButton
           label="Sign up with Google"
           variant="google"
-          iconSrc={<BsGoogle className="mr-2" />}
           onClick={() => console.log("Google Login Clicked")}
         />
         <AuthSwitchLink text="Or register here" />
