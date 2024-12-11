@@ -1,16 +1,20 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { IoCartOutline, IoClose, IoMenu } from "react-icons/io5";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { User } from "firebase/auth";
+import { auth } from "@/firebase/firebase.utils";
 
 const MENU_LINKS = [
   { name: "Home", link: "/" },
   { name: "Shop", link: "/Shop" },
   { name: "Contact", link: "/Contact" },
   { name: "Sign in", link: "/login" },
+  { name: "Sign out", link: null },
 ];
 
-const Navbar: React.FC = () => {
+const Navbar = ({ currentUser }: { currentUser?: User | null }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <nav className="relative bg-white shadow dark:bg-gray-800">
@@ -46,11 +50,24 @@ const Navbar: React.FC = () => {
           }`}
         >
           <div className="flex flex-col md:mx-6 md:flex-row">
-            {MENU_LINKS.map(({ name, link }) => (
+            {MENU_LINKS.filter(({ name }) => {
+              // Show "Sign in" if no currentUser, otherwise show "Sign out"
+              if (!currentUser && name === "Sign in") return true;
+              if (currentUser && name === "Sign out") return true;
+              // Include other links like "Home", "Shop", etc.
+              return name !== "Sign in" && name !== "Sign out";
+            }).map(({ name, link }) => (
               <Link
                 key={name}
                 className="my-2 transform text-gray-700 transition-colors duration-300 hover:text-blue-500 dark:text-gray-200 dark:hover:text-blue-400 md:mx-4 md:my-0"
-                to={link}
+                to={link || ""}
+                onClick={() => {
+                  if (name === "Sign out") {
+                    auth.signOut().then(() => {
+                      navigate("/login"); // Redirect to login
+                    });
+                  }
+                }}
               >
                 {name}
               </Link>
