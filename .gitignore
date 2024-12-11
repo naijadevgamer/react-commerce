@@ -26,5 +26,7 @@ Screenshot_20240528-142217.jpg
 
 # Typescript
 src/vite-env.d.ts
-
 src/assets/feat.html
+
+# env
+.env

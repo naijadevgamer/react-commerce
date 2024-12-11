@@ -65,8 +65,8 @@ const RegisterPage: React.FC = () => {
       );
       await createUserProfileDocument(user, { displayName: data.name });
       console.log("User registered successfully", user);
-      // Redirect to homepage
-      navigate("/");
+
+      navigate("/"); // Redirect to homepage
     } catch (error) {
       console.error("Error creating user", error);
     }

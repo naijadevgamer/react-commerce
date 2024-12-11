@@ -11,13 +11,13 @@ import {
 import { doc, getDoc, getFirestore, setDoc } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCeK3PE2BhwfleZQFHszr4hKctiR_ftdOE",
-  authDomain: "cavitorio-db.firebaseapp.com",
-  projectId: "cavitorio-db",
-  storageBucket: "cavitorio-db.firebasestorage.app",
-  messagingSenderId: "675426044004",
-  appId: "1:675426044004:web:84328954f225838e57f771",
-  measurementId: "G-95YT3VWPR3",
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
+  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
 };
 
 // Initialize Firebase
@@ -34,7 +34,7 @@ export const signInWithGoogleMobile = () =>
 // Create or fetch user profile
 export const createUserProfileDocument = async (
   userAuth: User,
-  additionalData?: { [key: string]: any },
+  additionalData?: { [key: string]: unknown },
 ) => {
   if (!userAuth) return;
   const userRef = doc(db, "users", `${userAuth.uid}`);
