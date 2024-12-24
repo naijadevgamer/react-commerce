@@ -1,19 +1,48 @@
 import Footer from "./components/Footer";
-import { Outlet } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { Outlet, useLocation } from "react-router-dom";
+import { useEffect } from "react";
 import { auth, createUserProfileDocument } from "@/firebase/firebase.utils";
 
-import Navbar from "@/components/Navbar";
 import { User } from "firebase/auth";
+import ConnectedNavbar from "@/components/Navbar";
+import { Dispatch } from "@reduxjs/toolkit";
+import { connect } from "react-redux";
+import { setCurrentUser } from "./Redux/user/user.action";
+import { DocumentSnapshot, onSnapshot } from "firebase/firestore";
 
-const App = () => {
-  const [currentUser, setCurrentUser] = useState<User | null>(null);
+const App = ({
+  setCurrentUser,
+}: {
+  setCurrentUser: (user: User | null) => void;
+}) => {
+  // const location = useLocation();
+
+  // // Routes where Navbar and Footer should be hidden
+  // const noLayoutRoutes = ["/login", "/signup"];
+
+  // // Check if the current path matches one of the no-layout routes
+  // const hideLayout = noLayoutRoutes.includes(location.pathname);
+
+  interface ExtendedUser extends User {
+    id: string;
+  }
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
       if (user) {
-        await createUserProfileDocument(user);
-        setCurrentUser(user);
+        const userRef = await createUserProfileDocument(user);
+
+        if (!userRef) {
+          console.error("User reference is undefined");
+          return;
+        }
+
+        onSnapshot(userRef, (doc: DocumentSnapshot) => {
+          setCurrentUser({
+            id: doc.id,
+            ...doc.data(),
+          } as ExtendedUser);
+        });
       } else {
         setCurrentUser(null);
       }
@@ -21,15 +50,22 @@ const App = () => {
 
     return () => unsubscribe(); // Clean up listener
   }, []); // Dependency array ensures the effect runs only on mount
+
   return (
     <div>
-      <Navbar currentUser={currentUser} />
+      <ConnectedNavbar />
       <main>
-        <Outlet />
+        <Outlet /> {/* Child components will render here */}
       </main>
       <Footer />
     </div>
   );
 };
 
-export default App;
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+  setCurrentUser: (user: User | null) => dispatch(setCurrentUser(user)),
+});
+
+const ConnectedApp = connect(null, mapDispatchToProps)(App);
+
+export default ConnectedApp;
