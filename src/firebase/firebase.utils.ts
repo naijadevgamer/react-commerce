@@ -26,6 +26,8 @@ export const auth = getAuth(firebase);
 export const db = getFirestore(firebase);
 const googleProvider = new GoogleAuthProvider();
 
+googleProvider.setCustomParameters({ prompt: "select_account" });
+
 export const signInWithGoogle = () => signInWithPopup(auth, googleProvider);
 
 export const signInWithGoogleMobile = () =>
