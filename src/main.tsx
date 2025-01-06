@@ -1,18 +1,20 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import App from "./App.tsx";
 import "./global.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ShopPage from "./pages/ShopPage.tsx";
-import CartPage from "./pages/CartPage.tsx";
 import RegisterPage from "./pages/RegisterPage.tsx";
-import LoginPage from "./pages/LoginPage.tsx";
 import HomePage from "./pages/HomePage.tsx";
+import { Provider } from "react-redux";
+import store from "./Redux/store.ts";
+import ConnectedApp from "./App.tsx";
+import LoginPage from "./pages/LoginPage.tsx";
+import ConnectedCartPage from "./pages/CartPage.tsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />, // Use Layout as the parent route
+    element: <ConnectedApp />, // Use Layout as the parent route
     children: [
       { path: "/", element: <HomePage /> },
       {
@@ -25,25 +27,27 @@ const router = createBrowserRouter([
           },
         ],
       },
-      { path: "cart", element: <CartPage /> },
+      { path: "cart", element: <ConnectedCartPage /> },
+      {
+        path: "login",
+        element: <LoginPage />,
+      },
+      {
+        path: "signup",
+        element: <RegisterPage />,
+      },
     ],
   },
   {
     path: "*",
     element: <div>Not Found</div>, // Fallback for unmatched routes
   },
-  {
-    path: "login",
-    element: <LoginPage />,
-  },
-  {
-    path: "signup",
-    element: <RegisterPage />,
-  },
 ]);
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <Provider store={store}>
+      <RouterProvider router={router} />
+    </Provider>
   </StrictMode>,
 );
