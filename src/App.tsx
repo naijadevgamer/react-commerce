@@ -1,8 +1,7 @@
 import Footer from "./components/Footer";
-import { Outlet, useLocation } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import { useEffect } from "react";
 import { auth, createUserProfileDocument } from "@/firebase/firebase.utils";
-
 import { User } from "firebase/auth";
 import ConnectedNavbar from "@/components/Navbar";
 import { Dispatch } from "@reduxjs/toolkit";
@@ -31,6 +30,7 @@ const App = ({
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
       if (user) {
         const userRef = await createUserProfileDocument(user);
+        console.log("User ref after:", userRef);
 
         if (!userRef) {
           console.error("User reference is undefined");
@@ -38,6 +38,7 @@ const App = ({
         }
 
         onSnapshot(userRef, (doc: DocumentSnapshot) => {
+          console.log("doc:", doc);
           setCurrentUser({
             id: doc.id,
             ...doc.data(),

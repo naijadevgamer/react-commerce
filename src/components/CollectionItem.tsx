@@ -1,29 +1,33 @@
-const CollectionItem = ({
-  name,
-  price,
-  imageUrl,
-}: {
-  name: string;
-  price: number;
-  imageUrl: string;
-}) => {
-  return (
-    <div className="relative flex h-[90vw] flex-col overflow-hidden rounded-t-md bg-red-50 shadow-lg sm:h-[25rem]">
-      <div className="h-[90%] w-full overflow-hidden duration-200 hover:opacity-75">
-        <img
-          alt={name}
-          src={imageUrl}
-          className="h-full w-full object-cover object-center"
-        />
-      </div>
-      <div className="mt-2">
-        <div className="mb-2 flex items-center justify-between">
-          <h3 className="text-lg text-gray-700">{name}</h3>
-          <p className="text-base font-medium text-gray-900">${price}</p>
-        </div>
+import { Item } from "@/interfaces";
 
-        <button className="w-full bg-primary px-5 py-2 text-center text-sm font-medium text-white hover:bg-primary/80">
-          Add to cart
+const CollectionItem = ({ item }: { item: Item }) => {
+  const { imageUrl, name, price } = item;
+  return (
+    <div className="group relative rounded-xl bg-gradient-to-br from-gray-800 via-gray-900 to-black shadow-xl transition duration-500 hover:shadow-2xl">
+      {/* Product Image */}
+      <div className="relative overflow-hidden rounded-t-xl">
+        <img
+          src={imageUrl}
+          alt={name}
+          className="h-64 w-full transform object-cover transition duration-500 group-hover:scale-105"
+        />
+        {/* Glow Animation */}
+        <div className="absolute -inset-1 rounded-xl bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 opacity-0 blur-lg transition duration-500 group-hover:opacity-40"></div>
+      </div>
+
+      {/* Product Info */}
+      <div className="p-4 text-white">
+        {/* Name */}
+        <h3 className="text-lg font-semibold transition duration-300 group-hover:text-purple-400">
+          {name}
+        </h3>
+
+        {/* Price */}
+        <p className="mt-1 text-sm text-gray-400">${price.toFixed(2)}</p>
+
+        {/* Add to Cart Button */}
+        <button className="mt-4 w-full transform cursor-pointer rounded-lg bg-purple-600 py-2 text-white shadow-md transition duration-300 hover:bg-purple-700 group-hover:translate-y-1 group-hover:shadow-lg">
+          Add to Cart
         </button>
       </div>
     </div>

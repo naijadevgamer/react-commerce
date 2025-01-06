@@ -15,8 +15,8 @@ const CollectionPreview = ({
       </h2>
 
       <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
-        {items.slice(0, 4).map(({ id, ...otherItemProps }) => (
-          <CollectionItem key={id} {...otherItemProps} />
+        {items.slice(0, 4).map((item) => (
+          <CollectionItem key={item.id} item={item} />
         ))}
       </div>
     </div>

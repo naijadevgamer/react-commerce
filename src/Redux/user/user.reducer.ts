@@ -1,12 +1,10 @@
 import { User } from "firebase/auth";
+import { userActionTypes } from "./user.types";
+import { Action } from "@/interfaces";
 // import { Action } from "redux";
 
 interface InitialState {
   currentUser: User | null;
-}
-interface Action {
-  type: string;
-  payload?: unknown;
 }
 
 const initialState: InitialState = {
@@ -15,7 +13,7 @@ const initialState: InitialState = {
 
 const userReducer = (state = initialState, action: Action) => {
   switch (action.type) {
-    case "SET_CURRENT_USER":
+    case userActionTypes.SET_CURRENT_USER:
       return {
         ...state,
         currentUser: action.payload,

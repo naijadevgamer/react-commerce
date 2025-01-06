@@ -1,8 +1,12 @@
 import { useState } from "react";
 import { IoCartOutline, IoClose, IoMenu } from "react-icons/io5";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { User } from "firebase/auth";
 import { auth } from "@/firebase/firebase.utils";
+import { connect } from "react-redux";
+import { RootState } from "@/interfaces";
+// import { setCurrentUser } from "@/Redux/user/user.action";
+// import { Dispatch } from "@reduxjs/toolkit";
 
 const MENU_LINKS = [
   { name: "Home", link: "/" },
@@ -14,7 +18,7 @@ const MENU_LINKS = [
 
 const Navbar = ({ currentUser }: { currentUser?: User | null }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   return (
     <nav className="relative bg-white shadow dark:bg-gray-800">
@@ -63,9 +67,7 @@ const Navbar = ({ currentUser }: { currentUser?: User | null }) => {
                 to={link || ""}
                 onClick={() => {
                   if (name === "Sign out") {
-                    auth.signOut().then(() => {
-                      navigate("/login"); // Redirect to login
-                    });
+                    auth.signOut();
                   }
                 }}
               >
@@ -75,12 +77,15 @@ const Navbar = ({ currentUser }: { currentUser?: User | null }) => {
           </div>
 
           <div className="flex justify-center md:block">
-            <div className="relative transform text-gray-700 transition-colors duration-300 hover:text-gray-600 dark:text-gray-200 dark:hover:text-gray-300">
+            <Link
+              to={"/cart"}
+              className="relative transform text-gray-700 transition-colors duration-300 hover:text-gray-600 dark:text-gray-200 dark:hover:text-gray-300"
+            >
               <IoCartOutline className="size-8" />
               <span className="absolute left-0 top-0 flex size-4 items-center justify-center rounded-full bg-blue-500 p-1 text-xs text-white">
                 9
               </span>
-            </div>
+            </Link>
           </div>
         </div>
       </div>
@@ -88,4 +93,13 @@ const Navbar = ({ currentUser }: { currentUser?: User | null }) => {
   );
 };
 
-export default Navbar;
+const mapStateToProps = (state: RootState) => ({
+  currentUser: state.user?.currentUser,
+});
+// const mapDispatchToProps = (dispatch: Dispatch) => ({
+//   setCurrentUser: (user: User | null) => dispatch(setCurrentUser(user)),
+// });
+
+const ConnectedNavbar = connect(mapStateToProps)(Navbar);
+
+export default ConnectedNavbar; // Named export fixes the ESLint warning
