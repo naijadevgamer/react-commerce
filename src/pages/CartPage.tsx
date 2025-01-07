@@ -7,11 +7,13 @@ const CartPage = ({ cartItems }: { cartItems: Item[] }) => {
   return (
     <div>
       <div className="mx-auto mt-6 w-full max-w-lg px-2 sm:max-w-lg">
-        <h1 className="text-center text-3xl font-semibold">Shopping Cart</h1>
+        <h1 className="text-center text-3xl font-semibold uppercase">
+          Shopping Cart
+        </h1>
 
         <div className="flex h-full flex-col justify-between">
           <div className="mt-8 flex-1">
-            <CartItems items={cartItems} />
+            <CartItems cartItems={cartItems} />
           </div>
 
           <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
@@ -51,9 +53,6 @@ interface CartState {
 const mapStateToProps = (state: CartState) => ({
   cartItems: state.cart.cartItems,
 });
-// const mapDispatchToProps = (dispatch: Dispatch) => ({
-//   setCurrentUser: (user: User | null) => dispatch(setCurrentUser(user)),
-// });
 
 const ConnectedCartPage = connect(mapStateToProps)(CartPage);
 

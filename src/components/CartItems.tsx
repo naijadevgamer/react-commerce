@@ -1,11 +1,11 @@
 import { Item } from "@/interfaces";
-import CartItem from "./cartItem";
+import CartItem from "./CartItem";
 
-const CartItems = ({ items }: { items: Item[] }) => {
+const CartItems = ({ cartItems }: { cartItems: Item[] }) => {
   return (
     <ul className="divide-y divide-gray-200">
-      {items.map((item) => (
-        <CartItem item={item} />
+      {cartItems.map((cartItem) => (
+        <CartItem cartItem={cartItem} />
       ))}
     </ul>
   );

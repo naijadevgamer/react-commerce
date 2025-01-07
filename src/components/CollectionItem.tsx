@@ -1,6 +1,15 @@
 import { Item } from "@/interfaces";
+import { setCartItems } from "@/Redux/cart/cart.action";
+import { Dispatch } from "@reduxjs/toolkit";
+import { connect } from "react-redux";
 
-const CollectionItem = ({ item }: { item: Item }) => {
+const CollectionItem = ({
+  item,
+  setCartItems,
+}: {
+  item: Item;
+  setCartItems: (item: Item) => void;
+}) => {
   const { imageUrl, name, price } = item;
   return (
     <div className="group relative rounded-xl bg-gradient-to-br from-gray-800 via-gray-900 to-black shadow-xl transition duration-500 hover:shadow-2xl">
@@ -26,7 +35,10 @@ const CollectionItem = ({ item }: { item: Item }) => {
         <p className="mt-1 text-sm text-gray-400">${price.toFixed(2)}</p>
 
         {/* Add to Cart Button */}
-        <button className="mt-4 w-full transform cursor-pointer rounded-lg bg-purple-600 py-2 text-white shadow-md transition duration-300 hover:bg-purple-700 group-hover:translate-y-1 group-hover:shadow-lg">
+        <button
+          className="mt-4 w-full transform cursor-pointer rounded-lg bg-purple-600 py-2 text-white shadow-md transition duration-300 hover:bg-purple-700 group-hover:translate-y-1 group-hover:shadow-lg"
+          onClick={() => setCartItems(item)}
+        >
           Add to Cart
         </button>
       </div>
@@ -34,4 +46,13 @@ const CollectionItem = ({ item }: { item: Item }) => {
   );
 };
 
-export default CollectionItem;
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+  setCartItems: (item: Item) => dispatch(setCartItems(item)),
+});
+
+const ConnectedCollectionItem = connect(
+  null,
+  mapDispatchToProps,
+)(CollectionItem);
+
+export default ConnectedCollectionItem;

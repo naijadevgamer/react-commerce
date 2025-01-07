@@ -1,8 +1,8 @@
 import { Item } from "@/interfaces";
 import { Minus, Plus } from "lucide-react";
 
-const CartItem = ({ item }: { item: Item }) => {
-  const { imageUrl, name, price } = item;
+const CartItem = ({ cartItem }: { cartItem: Item }) => {
+  const { imageUrl, name, price, quantity } = cartItem;
 
   return (
     <li className="group flex py-6 duration-500">
@@ -19,7 +19,7 @@ const CartItem = ({ item }: { item: Item }) => {
       <div className="ml-4 flex flex-1">
         <div className="flex flex-col justify-between py-5">
           <h3 className="text-lg font-semibold transition duration-300 group-hover:text-primary">
-            name
+            {name}
           </h3>
           <p className="text-sm text-gray-400">${price.toFixed(2)}</p>
         </div>
@@ -31,7 +31,7 @@ const CartItem = ({ item }: { item: Item }) => {
           <button className="flex size-8 items-center justify-center rounded-full bg-gray-700 text-white transition duration-300 hover:bg-purple-600">
             <Minus className="size-3" />
           </button>
-          <span>5</span>
+          <span>{quantity}</span>
           <button className="flex size-8 items-center justify-center rounded-full bg-gray-700 text-white transition duration-300 hover:bg-purple-600">
             <Plus className="size-3" />
           </button>

@@ -16,7 +16,7 @@ const MENU_LINKS = [
   { name: "Sign out", link: null },
 ];
 
-const Navbar = ({ currentUser }: { currentUser?: User | null }) => {
+const Navbar = ({ currentUser }: { currentUser: User | null }) => {
   const [isOpen, setIsOpen] = useState(false);
   // const navigate = useNavigate();
 

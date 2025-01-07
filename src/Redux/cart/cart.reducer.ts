@@ -1,8 +1,13 @@
-import { Action, Item } from "@/interfaces";
+import { Item } from "@/interfaces";
 import { cartActionTypes } from "./cart.types";
+import { addItemToCart } from "./cart.utils";
 
 interface InitialState {
   cartItems: Item[];
+}
+interface Action {
+  type: string;
+  payload: Item;
 }
 
 const initialState: InitialState = {
@@ -14,7 +19,7 @@ const cartReducer = (state = initialState, action: Action) => {
     case cartActionTypes.ADD_ITEM:
       return {
         ...state,
-        cartItems: [...state.cartItems, action.payload],
+        cartItems: addItemToCart(state.cartItems, action.payload),
       };
 
     default:
