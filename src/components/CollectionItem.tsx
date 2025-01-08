@@ -1,9 +1,9 @@
 import { Item } from "@/interfaces";
-import { setCartItems } from "@/Redux/cart/cart.action";
+import { addItemToCart } from "@/Redux/cart/cart.action";
 import { Dispatch } from "@reduxjs/toolkit";
 import { connect, ConnectedProps } from "react-redux";
 
-const CollectionItem = ({ item, setCartItems }: CollectionItemProps) => {
+const CollectionItem = ({ item, addItemToCart }: CollectionItemProps) => {
   const { imageUrl, name, price } = item;
   return (
     <div className="group relative rounded-xl bg-gradient-to-br from-gray-800 via-gray-900 to-black shadow-xl transition duration-500 hover:shadow-2xl">
@@ -30,8 +30,8 @@ const CollectionItem = ({ item, setCartItems }: CollectionItemProps) => {
 
         {/* Add to Cart Button */}
         <button
+          onClick={() => addItemToCart(item)}
           className="mt-4 w-full transform cursor-pointer rounded-lg bg-purple-600 py-2 text-white shadow-md transition duration-300 hover:bg-purple-700 group-hover:translate-y-1 group-hover:shadow-lg"
-          onClick={() => setCartItems(item)}
         >
           Add to Cart
         </button>
@@ -41,7 +41,7 @@ const CollectionItem = ({ item, setCartItems }: CollectionItemProps) => {
 };
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  setCartItems: (item: Item) => dispatch(setCartItems(item)),
+  addItemToCart: (item: Item) => dispatch(addItemToCart(item)),
 });
 
 const connector = connect(null, mapDispatchToProps);
