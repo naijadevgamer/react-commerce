@@ -1,6 +1,11 @@
 import { Item } from "@/interfaces";
 import { cartActionTypes } from "./cart.types";
-import { addItemToCart } from "./cart.utils";
+import {
+  decrementItemQuantity,
+  incrementItemQuantity,
+  filterOutItem,
+  updateCartWithNewItem,
+} from "./cart.utils";
 
 interface InitialState {
   cartItems: Item[];
@@ -19,7 +24,25 @@ const cartReducer = (state = initialState, action: Action) => {
     case cartActionTypes.ADD_ITEM:
       return {
         ...state,
-        cartItems: addItemToCart(state.cartItems, action.payload),
+        cartItems: updateCartWithNewItem(state.cartItems, action.payload),
+      };
+
+    case cartActionTypes.REMOVE_ITEM:
+      return {
+        ...state,
+        cartItems: filterOutItem(state.cartItems, action.payload),
+      };
+
+    case cartActionTypes.INCREASE_ITEM_QUANTITY:
+      return {
+        ...state,
+        cartItems: incrementItemQuantity(state.cartItems, action.payload),
+      };
+
+    case cartActionTypes.DECREASE_ITEM_QUANTITY:
+      return {
+        ...state,
+        cartItems: decrementItemQuantity(state.cartItems, action.payload),
       };
 
     default:
