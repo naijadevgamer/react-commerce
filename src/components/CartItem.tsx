@@ -1,7 +1,7 @@
 import { Item } from "@/interfaces";
 import {
-  decrementItemQuantity,
-  incrementItemQuantity,
+  addItemToCart,
+  clearItemFromCart,
   removeItemFromCart,
 } from "@/Redux/cart/cart.action";
 import { Dispatch } from "@reduxjs/toolkit";
@@ -41,14 +41,14 @@ const CartItem = ({ cartItem, dispatch }: CartItemProps) => {
         {/* Quantity Controls */}
         <div className="flex items-center space-x-2">
           <button
-            onClick={() => dispatch(decrementItemQuantity(cartItem))}
+            onClick={() => dispatch(removeItemFromCart(cartItem))}
             className="flex size-8 items-center justify-center rounded-full bg-gray-700 text-white transition duration-300 hover:bg-purple-600"
           >
             <Minus className="size-3" />
           </button>
           <span>{quantity}</span>
           <button
-            onClick={() => dispatch(incrementItemQuantity(cartItem))}
+            onClick={() => dispatch(addItemToCart(cartItem))}
             className="flex size-8 items-center justify-center rounded-full bg-gray-700 text-white transition duration-300 hover:bg-purple-600"
           >
             <Plus className="size-3" />
@@ -58,11 +58,11 @@ const CartItem = ({ cartItem, dispatch }: CartItemProps) => {
         {/* Remove Button */}
         <div className="flex self-end">
           <button
-            onClick={() => dispatch(removeItemFromCart(cartItem))}
+            onClick={() => dispatch(clearItemFromCart(cartItem))}
             type="button"
             className="font-medium text-red-500"
           >
-            Remove
+            Delete
           </button>
         </div>
       </div>

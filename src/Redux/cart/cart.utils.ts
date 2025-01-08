@@ -21,21 +21,17 @@ export const updateCartWithNewItem = (
   return [...cartItems, { ...cartItemToAdd, quantity: 1 }];
 };
 
-export const filterOutItem = (cartItems: Item[], cartItemToRemove: Item) =>
-  cartItems.filter((cartItem) => cartItem.id !== cartItemToRemove.id);
-
-export const incrementItemQuantity = (cartItems: Item[], cartItem: Item) => {
-  return cartItems.map((item) =>
-    item.id === cartItem.id ? { ...item, quantity: item.quantity + 1 } : item,
-  );
-};
-
-export const decrementItemQuantity = (cartItems: Item[], cartItem: Item) => {
-  if (cartItem.quantity <= 1) {
-    return cartItems.filter((item) => item.id !== cartItem.id);
+export const removeItemFromCart = (
+  cartItems: Item[],
+  cartItemToRemove: Item,
+) => {
+  if (cartItemToRemove.quantity <= 1) {
+    return cartItems.filter((item) => item.id !== cartItemToRemove.id);
   }
 
   return cartItems.map((item) =>
-    item.id === cartItem.id ? { ...item, quantity: item.quantity - 1 } : item,
+    item.id === cartItemToRemove.id
+      ? { ...item, quantity: item.quantity - 1 }
+      : item,
   );
 };
