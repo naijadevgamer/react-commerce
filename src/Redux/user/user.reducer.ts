@@ -1,10 +1,13 @@
 import { User } from "firebase/auth";
 import { userActionTypes } from "./user.types";
-import { Action } from "@/interfaces";
-// import { Action } from "redux";
 
 interface InitialState {
   currentUser: User | null;
+}
+
+interface Action {
+  type: string;
+  payload: User | null;
 }
 
 const initialState: InitialState = {
