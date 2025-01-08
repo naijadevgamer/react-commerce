@@ -1,6 +1,9 @@
 import { Item } from "@/interfaces";
 
-export const addItemToCart = (cartItems: Item[], cartItemToAdd: Item) => {
+export const updateCartWithNewItem = (
+  cartItems: Item[],
+  cartItemToAdd: Item,
+) => {
   const existingCartItem = cartItems.find(
     (cartItem) => cartItem.id === cartItemToAdd.id,
   );
@@ -16,4 +19,23 @@ export const addItemToCart = (cartItems: Item[], cartItemToAdd: Item) => {
   }
 
   return [...cartItems, { ...cartItemToAdd, quantity: 1 }];
+};
+
+export const filterOutItem = (cartItems: Item[], cartItemToRemove: Item) =>
+  cartItems.filter((cartItem) => cartItem.id !== cartItemToRemove.id);
+
+export const incrementItemQuantity = (cartItems: Item[], cartItem: Item) => {
+  return cartItems.map((item) =>
+    item.id === cartItem.id ? { ...item, quantity: item.quantity + 1 } : item,
+  );
+};
+
+export const decrementItemQuantity = (cartItems: Item[], cartItem: Item) => {
+  if (cartItem.quantity <= 1) {
+    return cartItems.filter((item) => item.id !== cartItem.id);
+  }
+
+  return cartItems.map((item) =>
+    item.id === cartItem.id ? { ...item, quantity: item.quantity - 1 } : item,
+  );
 };
