@@ -1,7 +1,19 @@
 import { Item } from "@/interfaces";
+import {
+  decrementItemQuantity,
+  incrementItemQuantity,
+  removeItemFromCart,
+} from "@/Redux/cart/cart.action";
+import { Dispatch } from "@reduxjs/toolkit";
 import { Minus, Plus } from "lucide-react";
+import { connect } from "react-redux";
 
-const CartItem = ({ cartItem }: { cartItem: Item }) => {
+interface CartItemProps {
+  cartItem: Item;
+  dispatch: Dispatch;
+}
+
+const CartItem = ({ cartItem, dispatch }: CartItemProps) => {
   const { imageUrl, name, price, quantity } = cartItem;
 
   return (
@@ -28,18 +40,28 @@ const CartItem = ({ cartItem }: { cartItem: Item }) => {
       <div className="flex flex-col justify-between py-4 text-sm">
         {/* Quantity Controls */}
         <div className="flex items-center space-x-2">
-          <button className="flex size-8 items-center justify-center rounded-full bg-gray-700 text-white transition duration-300 hover:bg-purple-600">
+          <button
+            onClick={() => dispatch(decrementItemQuantity(cartItem))}
+            className="flex size-8 items-center justify-center rounded-full bg-gray-700 text-white transition duration-300 hover:bg-purple-600"
+          >
             <Minus className="size-3" />
           </button>
           <span>{quantity}</span>
-          <button className="flex size-8 items-center justify-center rounded-full bg-gray-700 text-white transition duration-300 hover:bg-purple-600">
+          <button
+            onClick={() => dispatch(incrementItemQuantity(cartItem))}
+            className="flex size-8 items-center justify-center rounded-full bg-gray-700 text-white transition duration-300 hover:bg-purple-600"
+          >
             <Plus className="size-3" />
           </button>
         </div>
 
         {/* Remove Button */}
         <div className="flex self-end">
-          <button type="button" className="font-medium text-red-500">
+          <button
+            onClick={() => dispatch(removeItemFromCart(cartItem))}
+            type="button"
+            className="font-medium text-red-500"
+          >
             Remove
           </button>
         </div>
@@ -48,4 +70,7 @@ const CartItem = ({ cartItem }: { cartItem: Item }) => {
   );
 };
 
-export default CartItem;
+// Shorthand for Dispatching
+const ConnectedCartItem = connect(null)(CartItem);
+
+export default ConnectedCartItem;
