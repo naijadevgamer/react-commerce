@@ -1,9 +1,10 @@
 import CartItems from "@/components/CartItems";
 import { Button } from "@/components/ui/button";
-import { Item } from "@/interfaces";
-import { connect } from "react-redux";
+import { RootState } from "@/interfaces";
+import { selectCartItems } from "@/Redux/cart/cart.selector";
+import { connect, ConnectedProps } from "react-redux";
 
-const CartPage = ({ cartItems }: { cartItems: Item[] }) => {
+const CartPage = ({ cartItems }: PropsFromRedux) => {
   return (
     <div>
       <div className="mx-auto mt-6 w-full max-w-lg px-2 sm:max-w-lg">
@@ -44,16 +45,14 @@ const CartPage = ({ cartItems }: { cartItems: Item[] }) => {
   );
 };
 
-interface CartState {
-  cart: {
-    cartItems: Item[];
-  };
-}
-
-const mapStateToProps = (state: CartState) => ({
-  cartItems: state.cart.cartItems,
+const mapStateToProps = (state: RootState) => ({
+  cartItems: selectCartItems(state),
 });
 
-const ConnectedCartPage = connect(mapStateToProps)(CartPage);
+const connector = connect(mapStateToProps);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+const ConnectedCartPage = connector(CartPage);
 
 export default ConnectedCartPage;

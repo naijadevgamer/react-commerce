@@ -1,4 +1,4 @@
-import { User } from "firebase/auth";
+import rootReducer from "./Redux/root.reducer";
 
 export interface Item {
   id: number;
@@ -15,13 +15,4 @@ export interface ShopCategory {
   items: Item[];
 }
 
-export interface Action {
-  type: string;
-  payload?: unknown;
-}
-
-export interface RootState {
-  user: {
-    currentUser: User | null;
-  };
-}
+export type RootState = ReturnType<typeof rootReducer>;

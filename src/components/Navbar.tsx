@@ -1,12 +1,11 @@
 import { useState } from "react";
 import { IoCartOutline, IoClose, IoMenu } from "react-icons/io5";
 import { Link } from "react-router-dom";
-import { User } from "firebase/auth";
 import { auth } from "@/firebase/firebase.utils";
-import { connect } from "react-redux";
+import { connect, ConnectedProps } from "react-redux";
 import { RootState } from "@/interfaces";
-// import { setCurrentUser } from "@/Redux/user/user.action";
-// import { Dispatch } from "@reduxjs/toolkit";
+import { selectCartItemsCount } from "@/Redux/cart/cart.selector";
+import { selectCurrentUser } from "@/Redux/user/user.selector";
 
 const MENU_LINKS = [
   { name: "Home", link: "/" },
@@ -16,7 +15,7 @@ const MENU_LINKS = [
   { name: "Sign out", link: null },
 ];
 
-const Navbar = ({ currentUser }: { currentUser: User | null }) => {
+const Navbar = ({ currentUser, cartItemCount }: PropsFromRedux) => {
   const [isOpen, setIsOpen] = useState(false);
   // const navigate = useNavigate();
 
@@ -83,7 +82,7 @@ const Navbar = ({ currentUser }: { currentUser: User | null }) => {
             >
               <IoCartOutline className="size-8" />
               <span className="absolute left-0 top-0 flex size-4 items-center justify-center rounded-full bg-blue-500 p-1 text-xs text-white">
-                9
+                {cartItemCount}
               </span>
             </Link>
           </div>
@@ -94,11 +93,12 @@ const Navbar = ({ currentUser }: { currentUser: User | null }) => {
 };
 
 const mapStateToProps = (state: RootState) => ({
-  currentUser: state.user?.currentUser,
+  currentUser: selectCurrentUser(state),
+  cartItemCount: selectCartItemsCount(state),
 });
-// const mapDispatchToProps = (dispatch: Dispatch) => ({
-//   setCurrentUser: (user: User | null) => dispatch(setCurrentUser(user)),
-// });
+
+const connector = connect(mapStateToProps);
+type PropsFromRedux = ConnectedProps<typeof connector>;
 
 const ConnectedNavbar = connect(mapStateToProps)(Navbar);
 

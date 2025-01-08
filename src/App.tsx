@@ -5,23 +5,11 @@ import { auth, createUserProfileDocument } from "@/firebase/firebase.utils";
 import { User } from "firebase/auth";
 import ConnectedNavbar from "@/components/Navbar";
 import { Dispatch } from "@reduxjs/toolkit";
-import { connect } from "react-redux";
+import { connect, ConnectedProps } from "react-redux";
 import { setCurrentUser } from "./Redux/user/user.action";
 import { DocumentSnapshot, onSnapshot } from "firebase/firestore";
 
-const App = ({
-  setCurrentUser,
-}: {
-  setCurrentUser: (user: User | null) => void;
-}) => {
-  // const location = useLocation();
-
-  // // Routes where Navbar and Footer should be hidden
-  // const noLayoutRoutes = ["/login", "/signup"];
-
-  // // Check if the current path matches one of the no-layout routes
-  // const hideLayout = noLayoutRoutes.includes(location.pathname);
-
+const App = ({ setCurrentUser }: PropsFromRedux) => {
   interface ExtendedUser extends User {
     id: string;
   }
@@ -67,6 +55,9 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
   setCurrentUser: (user: User | null) => dispatch(setCurrentUser(user)),
 });
 
-const ConnectedApp = connect(null, mapDispatchToProps)(App);
+const connector = connect(null, mapDispatchToProps);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+const ConnectedApp = connector(App);
 
 export default ConnectedApp;

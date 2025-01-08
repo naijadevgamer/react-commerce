@@ -1,15 +1,9 @@
 import { Item } from "@/interfaces";
 import { setCartItems } from "@/Redux/cart/cart.action";
 import { Dispatch } from "@reduxjs/toolkit";
-import { connect } from "react-redux";
+import { connect, ConnectedProps } from "react-redux";
 
-const CollectionItem = ({
-  item,
-  setCartItems,
-}: {
-  item: Item;
-  setCartItems: (item: Item) => void;
-}) => {
+const CollectionItem = ({ item, setCartItems }: CollectionItemProps) => {
   const { imageUrl, name, price } = item;
   return (
     <div className="group relative rounded-xl bg-gradient-to-br from-gray-800 via-gray-900 to-black shadow-xl transition duration-500 hover:shadow-2xl">
@@ -50,9 +44,16 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
   setCartItems: (item: Item) => dispatch(setCartItems(item)),
 });
 
-const ConnectedCollectionItem = connect(
-  null,
-  mapDispatchToProps,
-)(CollectionItem);
+const connector = connect(null, mapDispatchToProps);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+interface AdditionalProps {
+  item: Item;
+}
+
+type CollectionItemProps = AdditionalProps & PropsFromRedux;
+
+const ConnectedCollectionItem = connector(CollectionItem);
 
 export default ConnectedCollectionItem;
