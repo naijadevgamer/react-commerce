@@ -1,14 +1,14 @@
 import { useNavigate } from "react-router-dom";
 import CartItems from "@/components/CartItems";
 import { Button } from "@/components/ui/button";
-import { RootState } from "@/interfaces";
 import {
   selectCartItems,
-  selectCartItemsCount,
+  selectCartTotalPrice,
 } from "@/Redux/cart/cart.selector";
 import { connect, ConnectedProps } from "react-redux";
+import { createStructuredSelector } from "reselect";
 
-const CartPage = ({ cartItems, CartItemsCount }: PropsFromRedux) => {
+const CartPage = ({ cartItems, totalPrice }: PropsFromRedux) => {
   const navigate = useNavigate();
   return (
     <div>
@@ -19,7 +19,7 @@ const CartPage = ({ cartItems, CartItemsCount }: PropsFromRedux) => {
 
         <div className="flex h-full flex-col justify-between">
           <div className="mt-8 flex-1">
-            {CartItemsCount ? (
+            {cartItems.length ? (
               <CartItems cartItems={cartItems} />
             ) : (
               <div className="flex flex-col items-center justify-center space-y-4 bg-gray-100 py-12 text-center">
@@ -42,7 +42,7 @@ const CartPage = ({ cartItems, CartItemsCount }: PropsFromRedux) => {
           <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
             <div className="flex justify-between text-base font-medium text-gray-900">
               <p>Subtotal:</p>
-              <p>$310</p>
+              <p>${totalPrice.toFixed(2)}</p>
             </div>
             <p className="mt-0.5 text-sm text-gray-500">
               Shipping and taxes are calculated at checkout.
@@ -70,9 +70,9 @@ const CartPage = ({ cartItems, CartItemsCount }: PropsFromRedux) => {
   );
 };
 
-const mapStateToProps = (state: RootState) => ({
-  cartItems: selectCartItems(state),
-  CartItemsCount: selectCartItemsCount(state),
+const mapStateToProps = createStructuredSelector({
+  cartItems: selectCartItems,
+  totalPrice: selectCartTotalPrice,
 });
 
 const connector = connect(mapStateToProps);

@@ -3,9 +3,9 @@ import { IoCartOutline, IoClose, IoMenu } from "react-icons/io5";
 import { Link } from "react-router-dom";
 import { auth } from "@/firebase/firebase.utils";
 import { connect, ConnectedProps } from "react-redux";
-import { RootState } from "@/interfaces";
 import { selectCartItemsCount } from "@/Redux/cart/cart.selector";
 import { selectCurrentUser } from "@/Redux/user/user.selector";
+import { createStructuredSelector } from "reselect";
 
 const MENU_LINKS = [
   { name: "Home", link: "/" },
@@ -92,9 +92,9 @@ const Navbar = ({ currentUser, cartItemCount }: PropsFromRedux) => {
   );
 };
 
-const mapStateToProps = (state: RootState) => ({
-  currentUser: selectCurrentUser(state),
-  cartItemCount: selectCartItemsCount(state),
+const mapStateToProps = createStructuredSelector({
+  currentUser: selectCurrentUser,
+  cartItemCount: selectCartItemsCount,
 });
 
 const connector = connect(mapStateToProps);
