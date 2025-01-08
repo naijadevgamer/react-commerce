@@ -1,10 +1,15 @@
+import { useNavigate } from "react-router-dom";
 import CartItems from "@/components/CartItems";
 import { Button } from "@/components/ui/button";
 import { RootState } from "@/interfaces";
-import { selectCartItems } from "@/Redux/cart/cart.selector";
+import {
+  selectCartItems,
+  selectCartItemsCount,
+} from "@/Redux/cart/cart.selector";
 import { connect, ConnectedProps } from "react-redux";
 
-const CartPage = ({ cartItems }: PropsFromRedux) => {
+const CartPage = ({ cartItems, CartItemsCount }: PropsFromRedux) => {
+  const navigate = useNavigate();
   return (
     <div>
       <div className="mx-auto mt-6 w-full max-w-lg px-2 sm:max-w-lg">
@@ -14,7 +19,24 @@ const CartPage = ({ cartItems }: PropsFromRedux) => {
 
         <div className="flex h-full flex-col justify-between">
           <div className="mt-8 flex-1">
-            <CartItems cartItems={cartItems} />
+            {CartItemsCount ? (
+              <CartItems cartItems={cartItems} />
+            ) : (
+              <div className="flex flex-col items-center justify-center space-y-4 bg-gray-100 py-12 text-center">
+                <span role="img" aria-label="Empty cart" className="text-6xl">
+                  🛒
+                </span>
+                <h2 className="text-2xl font-semibold text-gray-800">
+                  Your cart is empty
+                </h2>
+                <p className="text-gray-600">
+                  Looks like you haven't added any items to your cart yet.
+                </p>
+                <Button className="mt-4" onClick={() => navigate("/shop")}>
+                  Start Shopping
+                </Button>
+              </div>
+            )}
           </div>
 
           <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
@@ -33,7 +55,10 @@ const CartPage = ({ cartItems }: PropsFromRedux) => {
             <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
               <p>
                 OR{" "}
-                <button className="font-medium text-primary hover:text-primary/80">
+                <button
+                  className="font-medium text-primary hover:text-primary/80"
+                  onClick={() => navigate("/shop")}
+                >
                   Continue Shopping
                 </button>
               </p>
@@ -47,6 +72,7 @@ const CartPage = ({ cartItems }: PropsFromRedux) => {
 
 const mapStateToProps = (state: RootState) => ({
   cartItems: selectCartItems(state),
+  CartItemsCount: selectCartItemsCount(state),
 });
 
 const connector = connect(mapStateToProps);
