@@ -2,19 +2,23 @@ import { Item } from "@/interfaces";
 import { cartActionTypes } from "./cart.types";
 import { updateCartWithNewItem, removeItemFromCart } from "./cart.utils";
 
-interface InitialState {
+interface CartState {
   cartItems: Item[];
 }
-interface Action {
+
+interface CartAction {
   type: string;
   payload: Item;
 }
 
-const initialState: InitialState = {
+const initialState: CartState = {
   cartItems: [],
 };
 
-const cartReducer = (state = initialState, action: Action) => {
+const cartReducer = (
+  state: CartState = initialState,
+  action: CartAction,
+): CartState => {
   switch (action.type) {
     case cartActionTypes.ADD_ITEM:
       return {
