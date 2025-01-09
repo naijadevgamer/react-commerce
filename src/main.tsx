@@ -10,11 +10,13 @@ import ShopPage from "./pages/ShopPage.tsx";
 import RegisterPage from "./pages/RegisterPage.tsx";
 import HomePage from "./pages/HomePage.tsx";
 import { Provider, useSelector } from "react-redux";
-import store from "./Redux/store.ts";
+import { store } from "./Redux/store.ts";
 import ConnectedApp from "./App.tsx";
 import LoginPage from "./pages/LoginPage.tsx";
 import ConnectedCartPage from "./pages/CartPage.tsx";
 import { RootState } from "./interfaces.ts";
+// import { PersistGate } from "redux-persist/integration/react";
+// import { persistor } from "./Redux/store.ts";
 
 const AppRouter = () => {
   const currentUser = useSelector((state: RootState) => state.user.currentUser);
@@ -58,7 +60,9 @@ const AppRouter = () => {
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <Provider store={store}>
+      {/* <PersistGate loading={<div>Loading...</div>} persistor={persistor}> */}
       <AppRouter />
+      {/* </PersistGate> */}
     </Provider>
   </StrictMode>,
 );
