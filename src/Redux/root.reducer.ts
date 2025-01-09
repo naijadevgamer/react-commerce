@@ -5,6 +5,7 @@ import storage from "redux-persist/lib/storage";
 import userReducer from "./user/user.reducer";
 import cartReducer from "./cart/cart.reducer";
 import categoriesReducer from "./categories/categories.reducer";
+import shopDataReducer from "./shopData/reducer";
 // import { RootState } from "@/interfaces";
 
 const persistConfig = {
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
   user: userReducer,
   cart: cartReducer,
   categories: categoriesReducer,
+  shop: shopDataReducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

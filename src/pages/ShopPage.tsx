@@ -1,11 +1,9 @@
 import CollectionPreview from "@/components/CollectionPreview";
-import { ShopCategory } from "@/interfaces";
-import SHOP_DATA from "@/shop.data";
-import { useState } from "react";
+import { selectShopData } from "@/Redux/shopData/selector";
+import { connect, ConnectedProps } from "react-redux";
+import { createStructuredSelector } from "reselect";
 
-const ShopPage = () => {
-  const [collections] = useState<ShopCategory[]>(SHOP_DATA);
-
+const ShopPage = ({ collections }: ShopPageProps) => {
   return (
     <div>
       {collections.map(({ id, ...otherCollectionProps }) => (
@@ -15,4 +13,11 @@ const ShopPage = () => {
   );
 };
 
-export default ShopPage;
+const mapStateToProps = createStructuredSelector({
+  collections: selectShopData,
+});
+
+const connector = connect(mapStateToProps);
+type ShopPageProps = ConnectedProps<typeof connector>;
+
+export default connector(ShopPage);
