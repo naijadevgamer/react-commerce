@@ -100,6 +100,6 @@ const mapStateToProps = createStructuredSelector({
 const connector = connect(mapStateToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
-const ConnectedNavbar = connect(mapStateToProps)(Navbar);
+const ConnectedNavbar = connector(Navbar);
 
 export default ConnectedNavbar; // Named export fixes the ESLint warning
