@@ -1,5 +1,9 @@
 // import man from "@/assets/man.jpg";
 
+import { selectCategories } from "@/Redux/categories/categories.selector";
+import { connect, ConnectedProps } from "react-redux";
+import { createStructuredSelector } from "reselect";
+
 // type Category = {
 //   title: string;
 //   imageUrl: string;
@@ -8,45 +12,7 @@
 //   linkUrl: string;
 // };
 
-const categories = [
-  {
-    title: "hats",
-    imageUrl: "https://i.ibb.co/cvpntL1/hats.png",
-    id: 1,
-    grid: "row-span-2 grid",
-    linkUrl: "shop/hats",
-  },
-  {
-    title: "jackets",
-    imageUrl: "https://i.ibb.co/px2tCc3/jackets.png",
-    id: 2,
-    grid: "row-span-2 row-start-3 grid",
-    linkUrl: "shop/jackets",
-  },
-  {
-    title: "sneakers",
-    imageUrl: "https://i.ibb.co/0jqHpnp/sneakers.png",
-    id: 3,
-    grid: "col-span-2 row-span-full row-start-5 grid",
-    linkUrl: "shop/sneakers",
-  },
-  {
-    title: "womens",
-    imageUrl: "https://i.ibb.co/GCCdy8t/womens.png",
-    id: 4,
-    grid: "col-span-2 row-span-4 grid",
-    linkUrl: "shop/womens",
-  },
-  {
-    title: "mens",
-    imageUrl: "https://i.ibb.co/R70vBrQ/men.png",
-    id: 5,
-    grid: "col-span-1 row-span-3 grid",
-    linkUrl: "shop/mens",
-  },
-];
-
-const Categories = () => {
+const Categories = ({ categories }: PropsFromRedux) => {
   return (
     <section className="mx-auto max-w-4xl px-4 py-4 sm:px-6 sm:py-8 lg:max-w-7xl lg:px-8">
       <div className="mb-6 flex items-center justify-center gap-3 sm:justify-between">
@@ -78,4 +44,11 @@ const Categories = () => {
   );
 };
 
-export default Categories;
+const mapStateToProps = createStructuredSelector({
+  categories: selectCategories,
+});
+
+const connector = connect(mapStateToProps);
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+export default connector(Categories);
