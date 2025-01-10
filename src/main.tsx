@@ -15,6 +15,8 @@ import ConnectedApp from "./App.tsx";
 import LoginPage from "./pages/LoginPage.tsx";
 import ConnectedCartPage from "./pages/CartPage.tsx";
 import { RootState } from "./interfaces.ts";
+import CollectionOverview from "./components/CollectionOverview.tsx";
+import CollectionWrapper from "./components/Collection.tsx";
 // import { PersistGate } from "redux-persist/integration/react";
 // import { persistor } from "./Redux/store.ts";
 
@@ -29,11 +31,15 @@ const AppRouter = () => {
         { path: "/", element: <HomePage /> },
         {
           path: "shop",
-          element: <ShopPage />,
+          element: <ShopPage />, // Parent for nested routes
           children: [
             {
-              path: ":itemId",
-              element: <ShopPage />,
+              index: true, // Matches "/shop"
+              element: <CollectionOverview />, // Component for "/shop"
+            },
+            {
+              path: ":collectionId", // Matches "/shop/:itemId"
+              element: <CollectionWrapper />, // Component for "/shop/:itemId"
             },
           ],
         },

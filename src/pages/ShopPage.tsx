@@ -1,23 +1,12 @@
-import CollectionPreview from "@/components/CollectionPreview";
-import { selectShopData } from "@/Redux/shopData/selector";
-import { connect, ConnectedProps } from "react-redux";
-import { createStructuredSelector } from "reselect";
+import { Outlet } from "react-router-dom";
 
-const ShopPage = ({ collections }: ShopPageProps) => {
+const ShopPage = () => {
   return (
     <div>
-      {collections.map(({ id, ...otherCollectionProps }) => (
-        <CollectionPreview key={id} {...otherCollectionProps} />
-      ))}
+      {/* Nested routes will render here */}
+      <Outlet />
     </div>
   );
 };
 
-const mapStateToProps = createStructuredSelector({
-  collections: selectShopData,
-});
-
-const connector = connect(mapStateToProps);
-type ShopPageProps = ConnectedProps<typeof connector>;
-
-export default connector(ShopPage);
+export default ShopPage;
