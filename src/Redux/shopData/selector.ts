@@ -1,14 +1,6 @@
 import { RootState } from "@/interfaces";
 import { createSelector } from "@reduxjs/toolkit";
 
-const urlIdConnector: Record<string, number> = {
-  hats: 1,
-  sneakers: 2,
-  jackets: 3,
-  womens: 4,
-  mens: 5,
-};
-
 const shop = (state: RootState) => state.shop;
 
 export const selectShopData = createSelector(
@@ -16,10 +8,13 @@ export const selectShopData = createSelector(
   (selector) => selector.shopData,
 );
 
+export const selectShopDataForPreview = createSelector(
+  [selectShopData],
+  (selector) =>
+    Object.keys(selector).map((key) => selector[key as keyof typeof selector]),
+);
+
 export const selectCollection = (url: string) =>
   createSelector([selectShopData], (collections) => {
-    console.log(collections, url);
-    return collections.find(
-      (collection) => collection.id === urlIdConnector[url],
-    );
+    return collections[url as keyof typeof collections];
   });
