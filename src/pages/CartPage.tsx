@@ -7,9 +7,14 @@ import {
 } from "@/Redux/cart/cart.selector";
 import { connect, ConnectedProps } from "react-redux";
 import { createStructuredSelector } from "reselect";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+import StripeCheckoutButton from "@/components/StripeButton";
 
 const CartPage = ({ cartItems, totalPrice }: PropsFromRedux) => {
   const navigate = useNavigate();
+
+  const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
   return (
     <div>
       <div className="mx-auto mt-6 w-full max-w-lg px-2 sm:max-w-lg">
@@ -49,7 +54,9 @@ const CartPage = ({ cartItems, totalPrice }: PropsFromRedux) => {
             </p>
 
             <div className="mt-6">
-              <Button className="w-full">Checkout</Button>
+              <Elements stripe={stripePromise}>
+                <StripeCheckoutButton price={totalPrice} />
+              </Elements>
             </div>
 
             <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
