@@ -1,148 +1,16 @@
-// // import StripeCheckout, { Token } from "react-stripe-checkout";
-
-// // const StripeCheckoutButton = ({ price }: { price: number }) => {
-// //   // const publishableKey =
-
-// //   const handleToken = (token: Token) => {
-// //     // Implement your own logic to save the token
-// //     // e.g. saveToDatabase, send to your server, etc.
-// //     console.log("Token:", token);
-// //     alert("Token saved");
-// //     // You can also redirect to a success page here
-// //     // window.location.href = "/success"; // Replace with your success page URL
-// //   };
-// //   return (
-// //     <StripeCheckout
-// //       stripeKey={import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY}
-// //       amount={price}
-// //       currency="USD"
-// //       email="your-email@example.com"
-// //       token={(token) => handleToken(token)}
-// //       allowRememberMe={false}
-// //       shippingAddress={true}
-// //       image="https://example.com/your-product-image.jpg"
-// //       locale="en"
-// //       name="Cavitorio"
-// //       zipCode={true}
-// //       label="Pay with Card"
-// //       description="Your purchase"
-// //       panelLabel="Pay Now"
-// //     />
-// //   );
-// // };
-
-// // export default StripeCheckoutButton;
-
-// import { useStripe, useElements, CardElement } from "@stripe/react-stripe-js";
-
-// const StripeCheckoutButton = ({ price }: { price: number }) => {
-//   const stripe = useStripe();
-//   const elements = useElements();
-
-//   const handlePayment = async () => {
-//     if (!stripe || !elements) {
-//       console.log("Stripe.js has not yet loaded.");
-//       return;
-//     }
-
-//     // Get the CardElement
-//     const cardElement = elements.getElement(CardElement);
-
-//     if (!cardElement) {
-//       console.log("CardElement not found.");
-//       return;
-//     }
-
-//     // Create a payment method (simulated for testing)
-//     const { error, paymentMethod } = await stripe.createPaymentMethod({
-//       type: "card",
-//       card: cardElement,
-//     });
-
-//     if (error) {
-//       console.error(error.message);
-//       alert("Payment failed: " + error.message);
-//     } else {
-//       console.log("Payment method created:", paymentMethod);
-//       alert("Payment method created! Simulating backend call...");
-//       // Simulate sending the token to the backend
-//       console.log("Simulated token:", paymentMethod.id);
-//       alert("Simulated backend saved the token.");
-//     }
-
-//     // Create a payment intent on your server (this is a placeholder URL)
-//     // const response = await fetch("/create-payment-intent", {
-//     //   method: "POST",
-//     //   headers: { "Content-Type": "application/json" },
-//     //   body: JSON.stringify({ amount: price }),
-//     // });
-
-//     // const { clientSecret } = await response.json();
-
-//     // // Confirm the payment
-//     // const result = await stripe.confirmCardPayment(clientSecret, {
-//     //   payment_method: {
-//     //     card: elements.getElement(CardElement)!,
-//     //     billing_details: {
-//     //       name: "Customer Name", // Replace with user data
-//     //       email: "customer@example.com", // Replace with user data
-//     //     },
-//     //   },
-//     // });
-
-//     // if (result.error) {
-//     //   console.error("Payment failed:", result.error.message);
-//     //   alert("Payment failed. Please try again.");
-//     // } else if (result.paymentIntent?.status === "succeeded") {
-//     //   console.log("Payment succeeded:", result.paymentIntent);
-//     //   alert("Payment successful!");
-//     // }
-//   };
-
-//   return (
-//     <div>
-//       <h2 className="mb-2">Your purchase total: ${price.toFixed(2)}</h2>
-//       <CardElement
-//         options={{
-//           style: {
-//             base: {
-//               fontSize: "16px",
-//               color: "#424770",
-//               "::placeholder": {
-//                 color: "#aab7c4",
-//               },
-//             },
-//             invalid: {
-//               color: "#9e2146",
-//             },
-//           },
-//         }}
-//       />
-//       <button
-//         onClick={handlePayment}
-//         disabled={!stripe || !elements}
-//         style={{
-//           marginTop: "20px",
-//           padding: "10px 20px",
-//           background: "#5469d4",
-//           color: "#fff",
-//           border: "none",
-//           borderRadius: "5px",
-//           cursor: "pointer",
-//         }}
-//         className="text-right"
-//       >
-//         Pay Now
-//       </button>
-//     </div>
-//   );
-// };
-
-// export default StripeCheckoutButton;
-
 import React, { useState } from "react";
 import { loadStripe } from "@stripe/stripe-js";
-import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
+import {
+  CardElement,
+  useStripe,
+  useElements,
+  Elements,
+  // AddressElement,
+  // LinkAuthenticationElement,
+  // PaymentElement,
+} from "@stripe/react-stripe-js";
+import { Button } from "./ui/button";
+import { IoClose } from "react-icons/io5";
 
 // Load Stripe with your publishable key
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
@@ -217,30 +85,55 @@ const CheckoutForm = ({
   };
 
   return (
-    <form
-      onSubmit={handlePayment}
-      style={{ maxWidth: "400px", margin: "0 auto" }}
-    >
-      <h2 className="mb-2" style={{ textAlign: "center", color: "#333" }}>
+    <form onSubmit={handlePayment} className="mx-auto max-w-md">
+      <h2 className="text-lg font-semibold">Cavitorio - Premium Products</h2>
+      <p className="my-4 text-center text-secondary-foreground">
         Your purchase total: ${price.toFixed(2)}
-      </h2>
-      <p style={{ textAlign: "center", fontSize: "14px", color: "#777" }}>
-        Store: Cavitorio - Premium Products
       </p>
-      <CardElement />
+
+      {/* Collect email */}
+      {/* <div className="mb-4">
+        <h3>Email</h3>
+        <LinkAuthenticationElement />
+      </div> */}
+
+      {/* Collect address */}
+      {/* <div className="mb-4">
+        <AddressElement options={{ mode: "shipping" }} />
+      </div> */}
+
+      <div className="rounded py-3 pl-1 ring-2">
+        <CardElement
+          options={{
+            style: {
+              base: {
+                fontSize: "18px", // Larger and more readable font size
+                color: "#333", // Dark text color for readability
+                fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif", // Modern font
+                fontSmoothing: "antialiased", // Smooth edges for the text
+                "::placeholder": {
+                  color: "#888", // Subtle placeholder color
+                },
+              },
+              invalid: {
+                color: "#e74c3c", // Red color for invalid input
+                iconColor: "#e74c3c", // Red icon color for invalid input
+              },
+            },
+          }}
+        />
+      </div>
+
+      {/* Payment details */}
+      {/* <div className="mb-4">
+        <h3>Payment Method</h3>
+        <PaymentElement />
+      </div> */}
+
       <button
         type="submit"
         disabled={!stripe}
-        style={{
-          marginTop: "20px",
-          padding: "10px 20px",
-          backgroundColor: "#5469d4",
-          color: "#fff",
-          border: "none",
-          borderRadius: "5px",
-          cursor: "pointer",
-          width: "100%",
-        }}
+        className="mt-5 w-full rounded border-none bg-accent px-5 py-2.5 font-bold text-white"
       >
         Pay Now
       </button>
@@ -260,45 +153,17 @@ const Modal = ({
   if (!isOpen) return null;
 
   return (
-    <div
-      style={{
-        position: "fixed",
-        top: 0,
-        left: 0,
-        width: "100%",
-        height: "100%",
-        backgroundColor: "rgba(0, 0, 0, 0.5)",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        zIndex: 1000,
-      }}
-    >
+    <div className="fixed inset-0 z-50 flex items-center justify-center">
       <div
-        style={{
-          backgroundColor: "#fff",
-          borderRadius: "8px",
-          padding: "20px",
-          width: "90%",
-          maxWidth: "500px",
-          boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-          position: "relative",
-        }}
-      >
+        onClick={onClose}
+        className="absolute size-full bg-black bg-opacity-50"
+      ></div>
+      <div className="relative w-[90%] max-w-md rounded-lg bg-white p-5 shadow-lg">
         <button
           onClick={onClose}
-          style={{
-            background: "red",
-            border: "none",
-            color: "#000",
-            fontSize: "16px",
-            position: "absolute",
-            top: "10px",
-            right: "10px",
-            cursor: "pointer",
-          }}
+          className="absolute right-2 top-2 rounded-full text-xl"
         >
-          &times;
+          <IoClose />
         </button>
         {children}
       </div>
@@ -311,24 +176,17 @@ const StripeCheckoutButton = ({ price }: { price: number }) => {
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
+  // const mockClientSecret = "mock_client_secret_for_testing";
 
   return (
-    <Elements stripe={stripePromise}>
+    <Elements
+      stripe={stripePromise}
+      // options={{ clientSecret: mockClientSecret }}
+    >
       <div style={{ textAlign: "center", marginTop: "50px" }}>
-        <button
-          onClick={openModal}
-          style={{
-            padding: "10px 20px",
-            backgroundColor: "#5469d4",
-            color: "#fff",
-            border: "none",
-            borderRadius: "5px",
-            cursor: "pointer",
-            fontSize: "16px",
-          }}
-        >
+        <Button className="w-full" onClick={openModal}>
           Checkout
-        </button>
+        </Button>
 
         <Modal isOpen={isModalOpen} onClose={closeModal}>
           <CheckoutForm price={price} closeModal={closeModal} />
